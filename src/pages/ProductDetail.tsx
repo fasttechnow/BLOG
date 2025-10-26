@@ -7,8 +7,9 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { getProductById, products } from "@/data/products";
-import { ShoppingCart, Star, Check, Truck, Shield, ArrowLeft } from "lucide-react";
+import { ShoppingCart, Star, Check, Truck, Shield, ArrowLeft, TrendingDown } from "lucide-react";
 import { toast } from "sonner";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -32,6 +33,16 @@ const ProductDetail = () => {
   const relatedProducts = products
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
+
+  const categoryProducts = products
+    .filter(p => p.category === product.category)
+    .slice(0, 6);
+
+  const priceComparisonData = categoryProducts.map(p => ({
+    name: p.name.split(' ').slice(0, 3).join(' '),
+    price: p.price,
+    isCurrentProduct: p.id === product.id
+  })).sort((a, b) => a.price - b.price);
 
   const handleAddToCart = () => {
     toast.success("Product added to cart!", {
@@ -153,8 +164,9 @@ const ProductDetail = () => {
 
         {/* Product Details Tabs */}
         <Tabs defaultValue="specifications" className="mb-16">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsList className="grid w-full max-w-2xl grid-cols-3">
             <TabsTrigger value="specifications">Specifications</TabsTrigger>
+            <TabsTrigger value="price-comparison">Price Comparison</TabsTrigger>
             <TabsTrigger value="shipping">Shipping Info</TabsTrigger>
           </TabsList>
           <TabsContent value="specifications" className="mt-6">
@@ -168,6 +180,60 @@ const ProductDetail = () => {
                   </div>
                 ))}
               </div>
+            </Card>
+          </TabsContent>
+          <TabsContent value="price-comparison" className="mt-6">
+            <Card className="p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingDown className="w-5 h-5 text-primary" />
+                <h3 className="text-xl font-semibold">Price Comparison in {product.category.charAt(0).toUpperCase() + product.category.slice(1)} Category</h3>
+              </div>
+              <p className="text-muted-foreground mb-6">See how this product compares to similar items in price</p>
+              <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={priceComparisonData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis 
+                      dataKey="name" 
+                      angle={-45}
+                      textAnchor="end"
+                      height={100}
+                      interval={0}
+                    />
+                    <YAxis />
+                    <Tooltip 
+                      formatter={(value: number) => `$${value.toFixed(2)}`}
+                      contentStyle={{ backgroundColor: 'hsl(var(--background))', border: '1px solid hsl(var(--border))' }}
+                    />
+                    <Bar dataKey="price" radius={[8, 8, 0, 0]}>
+                      {priceComparisonData.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.isCurrentProduct ? "hsl(var(--primary))" : "hsl(var(--muted))"}
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <div className="mt-4 flex items-center gap-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 rounded" style={{ backgroundColor: "hsl(var(--primary))" }}></div>
+                  <span>Current Product</span>
+                </div>
+                <div className="flex items-center gap-2 ml-4">
+                  <div className="w-4 h-4 rounded" style={{ backgroundColor: "hsl(var(--muted))" }}></div>
+                  <span>Similar Products</span>
+                </div>
+              </div>
+              {product.originalPrice && (
+                <div className="mt-6 p-4 bg-success/10 rounded-lg border border-success/20">
+                  <p className="font-semibold text-success">💰 Great Deal!</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    You save ${(product.originalPrice - product.price).toFixed(2)} ({Math.round((product.originalPrice - product.price) / product.originalPrice * 100)}% off) compared to the original price
+                  </p>
+                </div>
+              )}
             </Card>
           </TabsContent>
           <TabsContent value="shipping" className="mt-6">

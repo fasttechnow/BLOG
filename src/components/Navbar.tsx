@@ -13,7 +13,10 @@ const Navbar = () => {
     { name: "TOOLS", path: "/category/tools" },
     { name: "PARTS", path: "/category/parts" },
     { name: "GAMING", path: "/category/gaming" },
-    { name: "REPAIR SERVICES", path: "/repair" },
+    { name: "ACCESSORIES", path: "/category/accessories" },
+    { name: "COMPUTERS", path: "/category/computers" },
+    { name: "AUDIO", path: "/category/audio" },
+    { name: "REPAIR", path: "/repair" },
     { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contact" },
   ];

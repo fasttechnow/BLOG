@@ -52,6 +52,9 @@ const Footer = () => {
               <li><Link to="/category/tools" className="hover:text-primary transition-colors">Tools & Supplies</Link></li>
               <li><Link to="/category/parts" className="hover:text-primary transition-colors">Replacement Parts</Link></li>
               <li><Link to="/category/gaming" className="hover:text-primary transition-colors">Gaming Consoles</Link></li>
+              <li><Link to="/category/accessories" className="hover:text-primary transition-colors">Accessories</Link></li>
+              <li><Link to="/category/computers" className="hover:text-primary transition-colors">Computers</Link></li>
+              <li><Link to="/category/audio" className="hover:text-primary transition-colors">Audio Equipment</Link></li>
             </ul>
           </div>
 
