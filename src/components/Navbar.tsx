@@ -14,6 +14,7 @@ const Navbar = () => {
     { name: "PARTS", path: "/category/parts" },
     { name: "GAMING", path: "/category/gaming" },
     { name: "REPAIR SERVICES", path: "/repair" },
+    { name: "ABOUT", path: "/about" },
     { name: "CONTACT", path: "/contact" },
   ];
 

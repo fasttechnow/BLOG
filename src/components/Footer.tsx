@@ -40,6 +40,7 @@ const Footer = () => {
               <li><Link to="/" className="hover:text-primary transition-colors">Home</Link></li>
               <li><Link to="/products" className="hover:text-primary transition-colors">Products</Link></li>
               <li><Link to="/repair" className="hover:text-primary transition-colors">Repair Services</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
             </ul>
           </div>
@@ -56,12 +57,12 @@ const Footer = () => {
 
           {/* Customer Service */}
           <div>
-            <h3 className="font-semibold mb-4">Customer Service</h3>
+            <h3 className="font-semibold mb-4">Legal & Support</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="hover:text-primary transition-colors">Shipping Information</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Warranty Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Return & Refund</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Track Order</a></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="hover:text-primary transition-colors">Support Center</Link></li>
             </ul>
           </div>
         </div>
